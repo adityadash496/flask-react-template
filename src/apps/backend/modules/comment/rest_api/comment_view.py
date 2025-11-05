@@ -1,3 +1,5 @@
+from typing import Optional
+
 from dataclasses import asdict
 
 from flask import jsonify, request
@@ -44,7 +46,9 @@ class CommentView(MethodView):
         return jsonify(comment_dict), 201
 
     @access_auth_middleware
-    def get(self, account_id: str, task_id: str = None, comment_id: str = None) -> ResponseReturnValue:
+    def get(
+        self, account_id: str, task_id: Optional[str] = None, comment_id: Optional[str] = None
+    ) -> ResponseReturnValue:
         """Get a single comment or all comments for a task"""
         if comment_id:
             # Get single comment

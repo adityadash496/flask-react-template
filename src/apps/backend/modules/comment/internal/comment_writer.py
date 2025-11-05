@@ -35,6 +35,9 @@ class CommentWriter:
         query = CommentRepository.collection().insert_one(comment_bson)
         created_comment_bson = CommentRepository.collection().find_one({"_id": query.inserted_id})
 
+        if created_comment_bson is None:
+            raise CommentNotFoundError(comment_id=str(query.inserted_id))
+
         return CommentUtil.convert_comment_bson_to_comment(created_comment_bson)
 
     @staticmethod

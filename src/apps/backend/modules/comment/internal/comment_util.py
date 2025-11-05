@@ -1,5 +1,7 @@
 from typing import Any
 
+from datetime import datetime
+
 from modules.comment.internal.store.comment_model import CommentModel
 from modules.comment.types import Comment
 
@@ -15,6 +17,6 @@ class CommentUtil:
             content=validated_comment_data.content,
             author=validated_comment_data.author,
             active=validated_comment_data.active,
-            created_at=validated_comment_data.created_at,
-            updated_at=validated_comment_data.updated_at,
+            created_at=validated_comment_data.created_at or datetime.now(),
+            updated_at=validated_comment_data.updated_at or datetime.now(),
         )
